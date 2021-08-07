@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MatchGame"
         mc:Ignorable="d"
-        Title="Find all of the matching animals" Height="450" Width="400">
+        Title="Find all of the matching emojis" Height="450" Width="400">
     <Grid Name="mainGrid" Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -19,87 +19,97 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="?"
+
+        <TextBlock 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            HorizontalAlignment="Center" 
+            TextWrapping="Wrap" 
+            Text="Emojis Count" 
+            VerticalAlignment="Center"/>
+        <TextBox 
+            Grid.Row="0" 
+            Grid.Column="2" 
+            Text="{Binding ElementName=EmojiCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+            VerticalAlignment="Center" 
+            />
+
+        <Slider 
+            x:Name="EmojiCountSlider" 
+            TickPlacement = "BottomRight" 
+            HorizontalAlignment="Center" 
+            IsSnapToTickEnabled="True" 
+            VerticalAlignment="Center"
+            Grid.Row="0" 
+            Grid.Column="1"
+            Minimum = "4" 
+            Maximum = "16" 
+            TickFrequency = "4"
+            FontSize="36"
+            Width="80" ValueChanged="changeEmojiCount">
+
+        </Slider>
+
+        <Button 
+            Content="Start Game" 
+            Grid.Row="0" 
+            Grid.Column="3" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Width="80" Click="SetupGame"/>
+
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="0"
-                   Grid.Row="0"
+                   Grid.Row="1"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="1"
-                   Grid.Row="0"
+                   Grid.Row="1"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="2"
-                   Grid.Row="0"
+                   Grid.Row="1"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="3"
-                   Grid.Row="0"
-                   FontSize="36"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   MouseDown="TextBlock_MouseDown"/>
-        <!-- row 1 -->
-        <TextBlock Text="?"
-                   Grid.Column="0"
                    Grid.Row="1"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
-                   Grid.Column="1"
-                   Grid.Row="1"
-                   FontSize="36"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
-                   Grid.Column="2"
-                   Grid.Row="1"
-                   FontSize="36"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
-                   Grid.Column="3"
-                   Grid.Row="1"
-                   FontSize="36"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   MouseDown="TextBlock_MouseDown"/>
-        <!-- row 2 -->
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="0"
                    Grid.Row="2"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="1"
                    Grid.Row="2"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="2"
                    Grid.Row="2"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="3"
                    Grid.Row="2"
                    FontSize="36"
@@ -107,45 +117,71 @@
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
 
-
-        <!-- row 3 -->
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="0"
                    Grid.Row="3"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="1"
                    Grid.Row="3"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="2"
                    Grid.Row="3"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
-        <TextBlock Text="?"
+        <TextBlock Tag="EmojiBlock"
                    Grid.Column="3"
                    Grid.Row="3"
                    FontSize="36"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    MouseDown="TextBlock_MouseDown"/>
+        <TextBlock Tag="EmojiBlock"
+                   Grid.Column="0"
+                   Grid.Row="4"
+                   FontSize="36"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   MouseDown="TextBlock_MouseDown"/>
+        <TextBlock Tag="EmojiBlock"
+                   Grid.Column="1"
+                   Grid.Row="4"
+                   FontSize="36"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   MouseDown="TextBlock_MouseDown"/>
+        <TextBlock Tag="EmojiBlock"
+                   Grid.Column="2"
+                   Grid.Row="4"
+                   FontSize="36"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   MouseDown="TextBlock_MouseDown"/>
+        <TextBlock Tag="EmojiBlock"
+                   Grid.Column="3"
+                   Grid.Row="4"
+                   FontSize="36"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   MouseDown="TextBlock_MouseDown"
+        />
         <TextBlock 
             x:Name="timeTextBlock" 
-            Grid.Row="4"
+            Grid.Row="5"
             VerticalAlignment="Center" 
             Grid.ColumnSpan="4" 
             FontSize="36" 
             HorizontalAlignment="Center" 
             Text="Elapsed Time" 
-            MouseDown="TimeTextBlock_MouseDown"/>
-
+         />
     </Grid>
 </Window>

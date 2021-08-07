@@ -17,6 +17,7 @@ namespace MatchGame
         private DispatcherTimer timer = new DispatcherTimer();
         private int tenthsOfSecondElapsed = 0;
         private int matchesFound = 0;
+        private int emojiCount = 0;
 
         List<string> emojis = new List<String>()
             {
@@ -36,8 +37,6 @@ namespace MatchGame
 
             timer.Interval = TimeSpan.FromSeconds(.1);
             timer.Tick += Timer_Tick;
-
-            SetupGame(emojis);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -45,36 +44,9 @@ namespace MatchGame
             tenthsOfSecondElapsed++;
             timeTextBlock.Text = (tenthsOfSecondElapsed / 10F).ToString("0.0s");
 
-            if (matchesFound == 8)
+            if ((matchesFound * 2) == emojiCount)
             {
                 timer.Stop();
-                timeTextBlock.Text = timeTextBlock.Text + " - Play Again?";
-            }
-        }
-
-        private void SetupGame(List<String> emojis)
-        {
-            List<string> emojisClone = new List<string>(emojis);
-
-            Random random = new Random();
-
-            foreach (TextBlock textblock in mainGrid.Children.OfType<TextBlock>())
-            {
-                if (textblock.Name == "timeTextBlock")
-                {
-                    continue;
-                }
-                else
-                {
-                    // generate randomly ordered emoji textblocks
-                    int randomIndex = random.Next(emojisClone.Count);
-                    string nextEmoji = emojisClone[randomIndex];
-                    textblock.Text = nextEmoji;
-                    emojisClone.RemoveAt(randomIndex);
-                    textblock.Visibility = Visibility.Visible;
-                }
-
-                timer.Start();
             }
         }
 
@@ -95,6 +67,7 @@ namespace MatchGame
             {
                 matchesFound++;
                 textBlock.Visibility = Visibility.Hidden;
+                textBlock.Text = "❓";
                 findingMatch = false;
             }
             else
@@ -105,13 +78,55 @@ namespace MatchGame
             }
         }
 
-        private void TimeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SetupGame(object sender, RoutedEventArgs e)
         {
-            if (matchesFound == 8)
+            resetGame();
+
+            Button button = sender as Button;
+            button.Content = "Restart Game";
+            List<string> emojisClone = new List<string>(emojis);
+            emojisClone = emojisClone.Take(emojiCount).ToList();
+
+            Random random = new Random();
+
+            foreach (TextBlock textblock in mainGrid.Children.OfType<TextBlock>())
             {
-                tenthsOfSecondElapsed = 0;
-                matchesFound = 0;
-                SetupGame(emojis);
+                if ((textblock.Tag as string) != "EmojiBlock")
+                {
+                    continue;
+                }
+                
+                if (emojisClone.Count > 0)
+                {
+                    // generate randomly ordered emoji textblocks
+                    int randomIndex = random.Next(emojisClone.Count);
+                    string nextEmoji = emojisClone[randomIndex];
+                    textblock.Text = nextEmoji;
+                    emojisClone.RemoveAt(randomIndex);
+                    textblock.Visibility = Visibility.Visible;
+                }
+
+                timer.Start();
+            }
+        }
+
+        private void changeEmojiCount(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Slider slider = sender as Slider;
+            emojiCount = (int)slider.Value;
+        }
+
+        private void resetGame()
+        {
+            tenthsOfSecondElapsed = 0;
+            matchesFound = 0;
+
+            foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
+            {
+                if ((textBlock.Tag as string) == "EmojiBlock")
+                {
+                    textBlock.Text = "";
+                }
             }
         }
     }
